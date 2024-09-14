@@ -71,7 +71,6 @@ export default function Home() {
               width={100} />}
 
 
-
           <div>
             <div className="text-center mt-10 text-4xl font-bold mb-9">Custom Umbrella</div>
             <div className="">
@@ -100,7 +99,7 @@ export default function Home() {
                   <label htmlFor="upload">
                     <FiUpload className="ml-3 h-6 w-6 text-white" />
                   </label>
-                  <div className="ml-[25%] text-white text-sm font-semibold">UPLOAD LOGO</div>
+                  <div className="ml-[25%] text-white text-sm font-semibold">{logoImg ? fileName : "UPLOAD LOGO"}</div>
                   {logoImg && <button onClick={() => setLogoImg(null)} ><IoMdClose className="text-white ml-14 h-6 w-6" /></button>}
                 </div>}
 
@@ -109,7 +108,7 @@ export default function Home() {
                   <label htmlFor="upload">
                     <FiUpload className="ml-3 h-6 w-6 text-white" />
                   </label>
-                  <div className="ml-[25%] text-white text-sm font-semibold">UPLOAD LOGO</div>
+                  <div className="ml-[25%] text-white text-sm font-semibold">{logoImg ? fileName : "UPLOAD LOGO"}</div>
                   {logoImg && <button onClick={() => setLogoImg(null)} ><IoMdClose className="text-white ml-14 h-6 w-6" /></button>}
                 </div>}
             </div>
@@ -120,7 +119,7 @@ export default function Home() {
         <input type="file" className="opacity-0" name="avatar" id="upload" onChange={handleFileChange} ref={fileRef} accept="image/png, image/jpeg" />
       </div>
 
-    </div>
+    </div >
 
   );
 }
