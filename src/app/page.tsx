@@ -1,101 +1,126 @@
+"use client";
 import Image from "next/image";
+import blueImg from "@/assets/Blue umbrella.png"
+import pinkImg from "@/assets/Pink umbrella.png"
+import yellowImg from "@/assets/Yello umbrella.png"
+import { FiUpload } from "react-icons/fi";
+import { useRef, useState } from "react";
+import { IoMdClose } from "react-icons/io";
+
+
+
+
+
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  let [color, setColor] = useState("blue");
+  let fileRef = useRef<HTMLInputElement>(null);
+  let [logoImg, setLogoImg] = useState<string | null>(null);
+  let [fileName, setFileName] = useState<string>("UPLOAD LOGO");
+  let [backgroundColor, setBackgroundColor] = useState<string>("white");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  const handleFileChange = () => {
+    let file = fileRef?.current?.files?.[0];
+
+    if (file) {
+      setLogoImg(URL.createObjectURL(file));
+      setFileName(file.name);
+    }
+  }
+
+
+
+  return (
+    <div className="h-[100vh] flex justify-center items-center" style={{ backgroundColor }}>
+      <div>
+        <div className="flex justify-center space-x-40 relative">
+          {color == "blue" &&
             <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+              className=""
+              src={blueImg}
+              alt="Umbrella"
+              width={280}
+              height={100}
+              priority
+            />}
+          {color == "pink" &&
+            <Image
+              className=""
+              src={pinkImg}
+              alt="Umbrella"
+              width={280}
+              height={100}
+              priority
+            />}
+          {color == "yellow" &&
+            <Image
+              className=""
+              src={yellowImg}
+              alt="Umbrella"
+              width={280}
+              height={100}
+              priority
+            />}
+
+          {logoImg &&
+            <Image
+              src={logoImg}
+              alt="logo"
+              className="h-5 w-10 absolute top-[250px] left-[-17px]  transform -translate-x-1/2 z-10"
+              height={100}
+              width={100} />}
+
+
+
+          <div>
+            <div className="text-center mt-10 text-4xl font-bold mb-9">Custom Umbrella</div>
+            <div className="">
+              <div className="flex gap-3 justify-center mb-8">
+                <button onClick={() => { setColor("pink"); setBackgroundColor("#fbc9e6") }} className="bg-pink-600 rounded-full h-5 w-5 focus:ring-4 focus:outline-none focus:ring-pink-300 focus:h-4 focus:w-4"></button>
+                <button onClick={() => { setColor("blue"); setBackgroundColor("#d8f2fb") }} className="bg-blue-600 rounded-full h-5 w-5 focus:ring-4 focus:outline-none focus:ring-blue-400 focus:h-4 focus:w-4"></button>
+                <button onClick={() => { setColor("yellow"); setBackgroundColor("#ffe3c0") }} className="bg-yellow-500 rounded-full h-5 w-5 focus:ring-4 focus:outline-none focus:ring-yellow-300 focus:h-4 focus:w-4"></button>
+              </div>
+              <div className="mb-3">
+                <div className="font-bold text-lg">Customize your  umbrella</div>
+                <div className="text-sm mb-2">Upload a logo for an instant preview.</div>
+                <div className="text-xs">.png and .jpg files only.Max file size is 5MB.</div>
+              </div>
+
+              {color == "pink" &&
+                <div className="w-full bg-pink-500 h-10 flex items-center">
+                  <label htmlFor="upload">
+                    <FiUpload className="ml-3 h-6 w-6 text-white" />
+                  </label>
+                  <div className="ml-[25%] text-white text-sm font-semibold">{logoImg ? fileName : "UPLOAD LOGO"}</div>
+                  {logoImg && <button onClick={() => { setLogoImg(null); setFileName("UPLOAD LOGO") }} ><IoMdClose className="text-white ml-14 h-6 w-6" /></button>}
+                </div>}
+
+              {color == "blue" &&
+                <div className="w-full bg-blue-600 h-10 flex items-center">
+                  <label htmlFor="upload">
+                    <FiUpload className="ml-3 h-6 w-6 text-white" />
+                  </label>
+                  <div className="ml-[25%] text-white text-sm font-semibold">UPLOAD LOGO</div>
+                  {logoImg && <button onClick={() => setLogoImg(null)} ><IoMdClose className="text-white ml-14 h-6 w-6" /></button>}
+                </div>}
+
+              {color == "yellow" &&
+                <div className="w-full bg-yellow-500 h-10 flex items-center">
+                  <label htmlFor="upload">
+                    <FiUpload className="ml-3 h-6 w-6 text-white" />
+                  </label>
+                  <div className="ml-[25%] text-white text-sm font-semibold">UPLOAD LOGO</div>
+                  {logoImg && <button onClick={() => setLogoImg(null)} ><IoMdClose className="text-white ml-14 h-6 w-6" /></button>}
+                </div>}
+            </div>
+
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <input type="file" className="opacity-0" name="avatar" id="upload" onChange={handleFileChange} ref={fileRef} accept="image/png, image/jpeg" />
+      </div>
+
     </div>
+
   );
 }
