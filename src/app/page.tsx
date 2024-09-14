@@ -20,7 +20,7 @@ export default function Home() {
   const [backgroundColor, setBackgroundColor] = useState<string>("white");
 
   const handleFileChange = () => {
-    let file = fileRef?.current?.files?.[0];
+    const file = fileRef?.current?.files?.[0];
 
     if (file) {
       setLogoImg(URL.createObjectURL(file));
