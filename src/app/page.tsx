@@ -13,11 +13,11 @@ import { IoMdClose } from "react-icons/io";
 
 
 export default function Home() {
-  let [color, setColor] = useState("blue");
-  let fileRef = useRef<HTMLInputElement>(null);
-  let [logoImg, setLogoImg] = useState<string | null>(null);
-  let [fileName, setFileName] = useState<string>("UPLOAD LOGO");
-  let [backgroundColor, setBackgroundColor] = useState<string>("white");
+  const [color, setColor] = useState("blue");
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [logoImg, setLogoImg] = useState<string | null>(null);
+  const [fileName, setFileName] = useState<string>("UPLOAD LOGO");
+  const [backgroundColor, setBackgroundColor] = useState<string>("white");
 
   const handleFileChange = () => {
     let file = fileRef?.current?.files?.[0];
